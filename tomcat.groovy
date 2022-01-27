@@ -19,5 +19,13 @@ pipeline {
                 """
             }
         }
+        stage("change tomcat port"){
+            steps{
+                sh"""
+                ssh -o StrictHostKeyChecking=no -i /tmp/sep15.pem ec2-user@${SERVERIP} "sudo sed -zi 's/8080/8088/2' /etc/tomcat/server.xml"
+                ssh -o StrictHostKeyChecking=no -i /tmp/sep15.pem ec2-user@${SERVERIP} "sudo systemctl restart tomcat"
+                """
+            }
+        }
     }
 }
