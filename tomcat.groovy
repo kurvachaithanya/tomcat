@@ -13,9 +13,9 @@ pipeline {
         stage("copying script to server"){
             steps{
                 sh """
-                scp -i /tmp/sep15.pem tomcat.sh ec2-user@${SERVERIP}:/tmp
-                ssh -i /tmp/sep15.pem ec2-user@${SERVERIP} "ls -l /tmp"
-                ssh -i /tmp/sep15.pem ec2-user@${SERVERIP} "sudo bash /tmp/tomcat.sh"
+                scp -o StrictHostKeyChecking=no -i /tmp/sep15.pem tomcat.sh ec2-user@${SERVERIP}:/tmp
+                ssh -o StrictHostKeyChecking=no -i /tmp/sep15.pem ec2-user@${SERVERIP} "ls -l /tmp"
+                ssh -o StrictHostKeyChecking=no -i /tmp/sep15.pem ec2-user@${SERVERIP} "sudo bash /tmp/tomcat.sh"
                 """
             }
         }
